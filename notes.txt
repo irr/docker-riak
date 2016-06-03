@@ -1,0 +1,14 @@
+http://basho.com/posts/technical/riak-quick-start-with-docker/
+
+DOCKER_RIAK_AUTOMATIC_CLUSTERING=1 DOCKER_RIAK_CLUSTER_SIZE=5 make start-cluster
+
+export RPORT=32774
+
+curl -i "http://localhost:$RPORT/buckets/test/keys/irr" \
+          -X PUT \
+          -H "Content-type: text/plain" \
+          -d "Ivan Ribeiro Rocha"
+
+curl -i "http://localhost:$RPORT/buckets/test/keys/irr";echo
+
+curl -s --compressed "http://localhost:$RPORT/buckets/test/props" | python -mjson.tool
